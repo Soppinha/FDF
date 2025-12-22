@@ -6,11 +6,11 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 21:25:04 by svaladar          #+#    #+#             */
-/*   Updated: 2025/12/21 21:38:17 by svaladar         ###   ########.fr       */
+/*   Updated: 2025/12/22 17:05:21 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../include/fdf.h"
 
 static void	put_pixel(t_fdf *fdf, int x, int y, int color)
 {

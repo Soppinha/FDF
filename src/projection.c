@@ -6,11 +6,11 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 21:37:28 by svaladar          #+#    #+#             */
-/*   Updated: 2025/12/21 21:37:35 by svaladar         ###   ########.fr       */
+/*   Updated: 2025/12/22 17:05:21 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../include/fdf.h"
 
 t_point	project(t_point p, t_fdf *fdf)
 {

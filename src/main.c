@@ -6,11 +6,11 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 21:38:59 by svaladar          #+#    #+#             */
-/*   Updated: 2025/12/21 21:39:07 by svaladar         ###   ########.fr       */
+/*   Updated: 2025/12/22 17:03:04 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../include/fdf.h"
 
 static void	init_fdf(t_fdf *fdf, t_map *map)
 {

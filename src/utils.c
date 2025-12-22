@@ -6,11 +6,11 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 21:39:20 by svaladar          #+#    #+#             */
-/*   Updated: 2025/12/21 21:46:43 by svaladar         ###   ########.fr       */
+/*   Updated: 2025/12/22 17:05:21 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../include/fdf.h"
 
 void	ft_error(char *msg)
 {

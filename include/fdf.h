@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 20:10:38 by svaladar          #+#    #+#             */
-/*   Updated: 2025/12/21 21:42:35 by svaladar         ###   ########.fr       */
+/*   Updated: 2025/12/22 17:04:44 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
-# include "./libft/libft.h"
-# include "./minilibx-linux/mlx.h"
+# include "../libft/libft.h"
+# include "../minilibx-linux/mlx.h"
 
 # define WIDTH 1920
 # define HEIGHT 1080
