@@ -6,19 +6,18 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 20:10:38 by svaladar          #+#    #+#             */
-/*   Updated: 2025/12/22 17:04:44 by svaladar         ###   ########.fr       */
+/*   Updated: 2025/12/26 21:56:41 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include <stdlib.h>
-# include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
 # include "../libft/libft.h"
 # include "../minilibx-linux/mlx.h"
+# include <X11/Xlib.h>
 
 # define WIDTH 1920
 # define HEIGHT 1080
@@ -59,24 +58,5 @@ typedef struct s_fdf
 	int		offset_x;
 	int		offset_y;
 }	t_fdf;
-
-/* Parse */
-t_map	*read_map(char *filename);
-void	free_map(t_map *map);
-
-/* Draw */
-void	draw_line(t_fdf *fdf, t_point p1, t_point p2);
-void	draw_map(t_fdf *fdf);
-
-/* Projection */
-t_point	project(t_point p, t_fdf *fdf);
-
-/* Events */
-int		key_press(int keycode, t_fdf *fdf);
-int		close_window(t_fdf *fdf);
-
-/* Utils */
-int		ft_atoi(const char *str);
-void	ft_error(char *msg);
 
 #endif
