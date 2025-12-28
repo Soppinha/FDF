@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 20:10:38 by svaladar          #+#    #+#             */
-/*   Updated: 2025/12/26 21:56:41 by svaladar         ###   ########.fr       */
+/*   Updated: 2025/12/27 20:56:49 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,11 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define ESC_KEY 65307
+# define INPUT_ERROR "Usage: ./fdf <map_file.fdf>\n"
+# define EXTENSION_ERROR "Error: Invalid file extension\n"
+# define FILE_ERROR "Error: Cannot open file\n"
+# define MAP_ERROR "Error: Invalid map\n"
+# define ALLOC_ERROR "Error: Memory allocation failed\n"
 
 typedef struct s_point
 {
@@ -35,28 +40,41 @@ typedef struct s_map
 {
 	int		width;
 	int		height;
-	int		**z_matrix;
-	int		**color_matrix;
+	int		**z_scale;
+	int		**color;
 }	t_map;
 
-typedef struct s_img
+// typedef struct s_img
+// {
+// 	void	*img_ptr;
+// 	char	*addr;
+// 	int		bpp;
+// 	int		line_len;
+// 	int		endian;
+// }	t_img;
+
+typedef struct s_screen
 {
-	void	*img_ptr;
-	char	*addr;
-	int		bpp;
-	int		line_len;
-	int		endian;
-}	t_img;
+	void	*win;
+	int		width;
+	int		height;
+}	t_screen;
 
 typedef struct s_fdf
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	t_img	img;
-	t_map	*map;
-	int		zoom;
-	int		offset_x;
-	int		offset_y;
+	void		*mlx;
+	t_screen	display;
+	t_map		*map;
+	int			zoom;
+	int			offset_x;
+	int			offset_y;
+	double		angle_x;
+	double		angle_y;
+	double		angle_z;
 }	t_fdf;
+// void	win_init(void);
+t_screen	get_screen_size(void);
+int			close_win(int keycode, void *param);
+t_fdf		*init_fdf(void);
 
 #endif

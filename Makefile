@@ -16,9 +16,9 @@ MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
 # Arquivos fonte
 SRCS = $(SRCS_DIR)/main.c \
-#        $(SRCS_DIR)/parse.c \
-#        $(SRCS_DIR)/draw.c \
-#        $(SRCS_DIR)/projection.c \
+		$(SRCS_DIR)/window.c \
+		$(SRCS_DIR)/parse.c \
+		$(SRCS_DIR)/fdf.c \
 #        $(SRCS_DIR)/events.c \
 #        $(SRCS_DIR)/utils.c
 
