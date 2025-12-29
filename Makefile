@@ -6,7 +6,7 @@
 #    By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/28 17:13:04 by svaladar          #+#    #+#              #
-#    Updated: 2025/12/28 19:33:26 by svaladar         ###   ########.fr        #
+#    Updated: 2025/12/29 14:29:34 by svaladar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRCS = $(SRCS_DIR)/main.c \
 		$(SRCS_DIR)/map.c \
 		$(SRCS_DIR)/map_utils.c \
 		$(SRCS_DIR)/map_allocation.c \
+		$(SRCS_DIR)/map_parse.c \
 
 OBJS = $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 

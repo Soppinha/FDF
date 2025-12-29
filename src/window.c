@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 17:49:01 by svaladar          #+#    #+#             */
-/*   Updated: 2025/12/28 17:49:47 by svaladar         ###   ########.fr       */
+/*   Updated: 2025/12/29 14:27:48 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,14 @@ t_screen	get_screen_size(void)
 	}
 	return (screen);
 }
-// void	win_init(void)
-// {
-// 	t_fdf		win_fdf;
-// 	t_screen	display;
 
-// 	win_fdf.mlx = mlx_init();
-// 	display = get_screen_size();
-// 	display.win = mlx_new_window(win_fdf.mlx,
-// 			display.width, display.height, "FDF Window");
-
-// 	mlx_key_hook(display.win, close_win, NULL);
-// 	mlx_loop(win_fdf.mlx);
-// }
+void	win_init(t_fdf *fdf)
+{
+	fdf->mlx = mlx_init();
+	fdf->display = get_screen_size();
+	fdf->display.win = mlx_new_window(fdf->mlx,
+			fdf->display.width, fdf->display.height, "FDF Window");
+	mlx_hook(fdf->display.win, X_BUTTON, 0, close_win, fdf);
+	mlx_key_hook(fdf->display.win, close_win_esc, fdf);
+	mlx_loop(fdf->mlx);
+}

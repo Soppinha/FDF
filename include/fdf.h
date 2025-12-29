@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 20:10:38 by svaladar          #+#    #+#             */
-/*   Updated: 2025/12/28 18:11:43 by svaladar         ###   ########.fr       */
+/*   Updated: 2025/12/29 15:25:17 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ typedef struct s_fdf
 	double		angle_z;
 }	t_fdf;
 
-// void	win_init(void);
+void		win_init(t_fdf *fdf);
 t_screen	get_screen_size(void);
 int			close_win_esc(int keycode, t_fdf *fdf);
 int			close_win(t_fdf *fdf);
