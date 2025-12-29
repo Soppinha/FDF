@@ -1,32 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.c                                            :+:      :+:    :+:   */
+/*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 18:30:22 by svaladar          #+#    #+#             */
-/*   Updated: 2025/12/27 20:25:29 by svaladar         ###   ########.fr       */
+/*   Updated: 2025/12/28 17:56:31 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int	checker_extesion(char *filename, char *extension)
+static int	checker_extension(char *filename, char *extension)
 {
 	char	*str;
-	int		is_equals;
 
-	str = ft_strchr(filename, '.');
+	str = ft_strrchr(filename, '.');
 	if (!str)
 		return (0);
-	is_equals = ft_strcmp(str, extension);
-	if (is_equals != 0)
+	if (ft_strcmp(str, extension) != 0)
 		return (0);
-	return (is_equals);
+	return (1);
 }
 
-int	checker_file_exists(char *filename)
+static int	checker_file_exists(char *filename)
 {
 	int	fd;
 
@@ -37,14 +35,14 @@ int	checker_file_exists(char *filename)
 	return (1);
 }
 
-int	parse_validation(int ac, char **av)
+int	input_validation(int ac, char **av)
 {
 	if (ac != 2)
 	{
 		ft_putstr_fd(INPUT_ERROR, 2);
 		return (0);
 	}
-	if (!checker_extesion(av[1], ".fdf"))
+	if (!checker_extension(av[1], ".fdf"))
 	{
 		ft_putstr_fd(EXTENSION_ERROR, 2);
 		return (0);
