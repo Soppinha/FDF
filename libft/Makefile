@@ -49,7 +49,8 @@ SRCS    =   ft_isalpha.c            \
             ft_print_usg.c          \
             ft_print_hex.c          \
             get_next_line.c         \
-            get_next_line_utils.c
+            get_next_line_utils.c 	\
+			ft_atoi_base.c
 
 SRCS_B  =   ft_lstadd_back_bonus.c  \
             ft_lstadd_front_bonus.c \
