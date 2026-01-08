@@ -6,13 +6,13 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 13:44:05 by svaladar          #+#    #+#             */
-/*   Updated: 2025/08/19 15:35:53 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/07 21:08:09 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_count_words(const char *s, char c)
+size_t	ft_count_words(const char *s, char c)
 {
 	int		n_word;
 	size_t	i;

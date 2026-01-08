@@ -1,40 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_parse.c                                        :+:      :+:    :+:   */
+/*   colors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/28 19:35:45 by svaladar          #+#    #+#             */
-/*   Updated: 2025/12/29 17:19:54 by svaladar         ###   ########.fr       */
+/*   Created: 2026/01/07 22:13:59 by svaladar          #+#    #+#             */
+/*   Updated: 2026/01/07 22:30:00 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
 
-int	parse_color(char *str)
-{
-	int		color;
-	char	*hex;
+#ifndef COLORS_H
+# define COLORS_H
 
-	hex = ft_strchr(str, ',');
-	if (!hex)
-		return (0xFFFFFF);
-	hex++;
-	color = 0;
-	if (hex[0] == '0' && (hex[1] == 'x' || hex[1] == 'X'))
-		hex += 2;
-	return (color);
-}
+# define C_WHITE	0xffffff
+# define C_BLACK	0x000000
 
-int	parse_line(char *line, t_map *map, int y)
-{
-	char	**values;
-	int		x;
+# define C_RED		0xff0000
+# define C_GREEN	0x00ff00
+# define C_BLUE		0x0000ff
 
-	values = ft_split(line, ' ');
-	if (!values)
-		return (0);
-	
-}
+# define C_YELLOW	0xffff00
+# define C_CYAN		0x00ffff
+# define C_PINK		0xff00ff
 
+# define C_ORANGY	0xffa500
+# define C_BLUEY	0x0492c2
+
+#endif

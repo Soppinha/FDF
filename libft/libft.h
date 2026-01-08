@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 13:48:45 by svaladar          #+#    #+#             */
-/*   Updated: 2026/01/06 23:31:47 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/07 21:08:20 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,5 @@ char	*ft_extract_line(char *stash);
 char	*ft_update_stash(char *stash);
 
 int		ft_atoi_base(char *str, char *base);
+size_t	ft_count_words(const char *s, char c);
 #endif

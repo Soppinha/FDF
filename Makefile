@@ -5,83 +5,118 @@
 #                                                     +:+ +:+         +:+      #
 #    By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/12/28 17:13:04 by svaladar          #+#    #+#              #
-#    Updated: 2025/12/29 14:29:34 by svaladar         ###   ########.fr        #
+#    Created: 2021/10/04 20:34:48 by cado-car          #+#    #+#              #
+#    Updated: 2026/01/07 21:09:37 by svaladar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = fdf
+NAME 		= fdf
+MLX 		= libmlx_Linux.a
+LIBFT 		= libft.a
 
-CC = cc
+LFT_PATH 	= ./libft/
+MLX_PATH 	= ./minilibx-linux/
+INCLUDES 	= ./include/
+SRCDIR 		= ./src/
 
-CFLAGS = -Wall -Wextra -Werror -g
+SRC 		= $(SRCDIR)main.c \
+				$(SRCDIR)close.c \
+				$(SRCDIR)color.c \
+				$(SRCDIR)draw.c \
+				$(SRCDIR)error.c \
+				$(SRCDIR)init_utils.c \
+				$(SRCDIR)init.c \
+				$(SRCDIR)key_handle.c \
+				$(SRCDIR)menu.c \
+				$(SRCDIR)project.c \
+				$(SRCDIR)read.c \
+				$(SRCDIR)render.c \
+				$(SRCDIR)rotate.c \
+				$(SRCDIR)transform.c \
+				$(SRCDIR)utils.c
 
-# Diretorios
-LIBFT_DIR = libft
-MLX_DIR = minilibx-linux
-SRCS_DIR = src
-OBJS_DIR = obj
+OBJ=$(notdir $(SRC:.c=.o))
+#OBJ= fdf.o
 
-# Bibliotecas
-LIBFT = $(LIBFT_DIR)/libft.a
-MLX = $(MLX_DIR)/libmlx.a
-MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+#compilation
+CF 			= -Wall -Wextra -Werror
+CC 			= cc
+MLX_CF 		= -lm -lbsd -lmlx -lXext -lX11
+CFI 		= -I$(INCLUDES)
+LEAKS 		= valgrind
+LEAKS_FILE	= valgrind-out.txt
+LF 			= --leak-check=full \
+        		--show-leak-kinds=all \
+        		--track-origins=yes \
+        		--verbose \
+        		--log-file=$(LEAKS_FILE) \
+        		./fdf maps/42.fdf
 
-# Arquivos fonte
-SRCS = $(SRCS_DIR)/main.c \
-		$(SRCS_DIR)/fdf.c \
-		$(SRCS_DIR)/input.c \
-		$(SRCS_DIR)/window.c \
-		$(SRCS_DIR)/free_fdf.c \
-		$(SRCS_DIR)/map.c \
-		$(SRCS_DIR)/map_utils.c \
-		$(SRCS_DIR)/map_allocation.c \
-		$(SRCS_DIR)/map_parse.c \
+#common commands
+RM =rm -f
 
-OBJS = $(SRCS:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
-
-
-# Cores para output
-GREEN = \033[0;32m
-RED = \033[0;31m
-RESET = \033[0m
-
+#rules
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(MLX) $(OBJS_DIR) $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
-	@echo "$(GREEN)✓ FDF compilado com sucesso!$(RESET)"
+$(NAME): $(OBJ) $(LIBFT) $(MLX)
+	@printf "\n$(CY)Generating FdF executable...$(RC)\n"
+	$(CC) $(CF) -o $(NAME) $(OBJ) -L $(LFT_PATH) -L $(MLX_PATH) -lft $(MLX_CF)
+	mkdir objs
+	mv $(OBJ) objs/
+	@printf "$(GR)Done!$(RC)\n\n"
 
-
-$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c
-	@$(CC) $(CFLAGS) -c $< -o $@
-	@echo "$(GREEN)✓ Compilado: $<$(RESET)"
-
-$(OBJS_DIR):
-	@mkdir -p $(OBJS_DIR)
-
-$(LIBFT):
-	@echo "$(GREEN)Compilando libft...$(RESET)"
-	@make -C $(LIBFT_DIR) --no-print-directory
-	@echo "$(GREEN)✓ Libft compilada!$(RESET)"
+$(OBJ): $(SRC)
+	@printf "\n$(CY)Compiling source files...$(RC)\n"
+	$(CC) $(CF) -g -c -I ./includes/ $(SRC)
+	@printf "$(GR)Objects ready!$(RC)\n\n"
 
 $(MLX):
-	@echo "$(GREEN)Compilando MiniLibX...$(RESET)"
-	@make -C $(MLX_DIR) --no-print-directory
-	@echo "$(GREEN)✓ MiniLibX compilada!$(RESET)"
-	
-clean:
-	@make -C $(LIBFT_DIR) clean --no-print-directory
-	@make -C $(MLX_DIR) clean --no-print-directory
-	@rm -rf $(OBJS_DIR)
-	@echo "$(RED)✗ Objetos removidos$(RESET)"
+	@printf "\n$(CY)Generating MiniLibX...$(RC)\n"
+	@make -C $(MLX_PATH)
+	@printf "$(GR)MiniLibX created!$(RC)\n\n"
 
+$(LIBFT):
+	@printf "\n$(GR)Generating Libft...$(RC)\n"
+	@make -C $(LFT_PATH)
+	@printf "$(GR)Libft created!$(RC)\n\n"
 
-fclean: clean
-	@make -C $(LIBFT_DIR) fclean --no-print-directory
-	@rm -f $(NAME)
-	@echo "$(RED)✗ Executável removido$(RESET)"
+bonus: all
 
 re: fclean all
 
-.PHONY: all clean fclean re
+rebonus: fclean bonus
+
+leaks: 
+	$(LEAKS) $(LF)
+	@printf "$(GR)Leaks log ready! Check valgrind-out.txt $(RC)\n\n"
+
+cleanleaks: 
+	$(RM) $(LEAKS_FILE)
+	@printf "$(GR)Leaks log file deleted.$(RC)\n\n"
+
+clean:
+	@printf "\n$(YE)Cleaning all object files from libft...$(RC)\n"
+	@make clean -C $(LFT_PATH)
+	@printf "$(GR)Libft objects removed!$(RC)\n\n"
+	$(RM) -rf $(OBJ) $(BONUS_OBJ) objs/
+
+fclean: clean
+	@printf "\n$(YE)Cleaning all additional objects and libraries...$(RC)\n"
+	$(RM) -rf $(NAME) $(BONUS_OBJ) objs/
+	@make fclean -C $(LFT_PATH)
+	@make clean -C $(MLX_PATH)
+	@printf "$(GR)All libraries removed!$(RC)\n\n"
+	make cleanleaks
+
+install: 
+	sudo apt-get install gcc make xorg libxext-dev libbsd-dev -y
+	@printf "$(GR)All dependencies ready!$(RC)\n\n"
+
+.PHONY: clean fclean re rebonus all bonus
+
+# Colors
+GR	= \033[32;1m
+RE	= \033[31;1m
+YE	= \033[33;1m
+CY	= \033[36;1m
+RC	= \033[0m
