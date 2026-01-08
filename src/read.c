@@ -5,60 +5,21 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/30 10:29:41 by cado-car          #+#    #+#             */
-/*   Updated: 2026/01/07 23:33:41 by svaladar         ###   ########.fr       */
+/*   Created: 2026/01/08 17:18:00 by svaladar          #+#    #+#             */
+/*   Updated: 2026/01/08 19:45:39 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
-
-static int	get_width(char *file_name);
-static int	get_depth(char *file_name);
-static void	get_points(char *file_name, t_map *map);
-static void	fill_point(char *point, t_map *map, int coord_x, int coord_y);
-
-t_map	*read_map(char *file_name)
-{
-	t_map	*map;
-	int		fd;
-
-	fd = open(file_name, O_RDONLY, 0);
-	if (fd < 0)
-		error(2);
-	close(fd);
-	map = init_map();
-	if (!map)
-		return (NULL);
-	map->max_x = get_width(file_name);
-	map->max_y = get_depth(file_name);
-	
-	// ✅ Verifica ANTES de alocar
-	if (map->max_x == 0 || map->max_y == 0)
-	{
-		free(map);
-		return (NULL);
-	}
-	
-	map->coordinates = init_coordinates(map->max_x, map->max_y);
-	if (!map->coordinates)
-	{
-		free(map);
-		return (NULL);
-	}
-	get_points(file_name, map);
-	center_to_origin(map);
-	return (map);
-}
 
 static int	get_width(char *file_name)
 {
 	int		fd;
 	char	*line;
 	int		width;
-	int		new_width;
 
 	fd = open(file_name, O_RDONLY, 0);
-	if (fd < 0)  // Add this check
+	if (fd < 0)
 		return (0);
 	line = get_next_line(fd);
 	if (!line)
@@ -68,19 +29,13 @@ static int	get_width(char *file_name)
 	}
 	width = (int)ft_count_words(line, ' ');
 	free(line);
-	while (1)
+	line = get_next_line(fd);
+	while (line)
 	{
-		line = get_next_line(fd);
-		if (line == NULL)
-			break ;
-		new_width = (int)ft_count_words(line, ' ');
-		if (width != new_width)
-		{
-			free(line);
-			close(fd); 
+		if (!validate_line_width(line, width, fd))
 			return (0);
-		}
 		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (width);
@@ -93,7 +48,7 @@ static int	get_depth(char *file_name)
 	char	*line;
 
 	fd = open(file_name, O_RDONLY, 0);
-	if (fd < 0)  // Add this check
+	if (fd < 0)
 		return (0);
 	depth = 0;
 	while (1)
@@ -117,7 +72,7 @@ static void	get_points(char *file_name, t_map *map)
 	int		coord[2];
 
 	fd = open(file_name, O_RDONLY, 0);
-	if (fd < 0)  // Add this check
+	if (fd < 0)
 		return ;
 	coord[1] = 0;
 	while (1)
@@ -127,12 +82,7 @@ static void	get_points(char *file_name, t_map *map)
 			break ;
 		split = ft_split(line, ' ');
 		coord[0] = 0;
-		while (coord[0] < map->max_x)
-		{
-			fill_point(split[coord[0]], map, coord[0], coord[1]);
-			free(split[coord[0]]);
-			coord[0]++;
-		}
+		process_line_points(split, map, coord);
 		free(split);
 		free(line);
 		coord[1]++;
@@ -140,31 +90,29 @@ static void	get_points(char *file_name, t_map *map)
 	close(fd);
 }
 
-static void	fill_point(char *point, t_map *map, int coord_x, int coord_y)
+t_map	*read_map(char *file_name)
 {
-	char	**info;
-	int		i;
+	t_map	*map;
+	int		fd;
 
-	map->coordinates[coord_x][coord_y].x = (float)coord_x;
-	map->coordinates[coord_x][coord_y].y = (float)coord_y;
-	if (ft_strchr(point, ','))
+	fd = open(file_name, O_RDONLY, 0);
+	if (fd < 0)
+		return (error(2), NULL);
+	close(fd);
+	map = init_map();
+	if (!map)
+		return (NULL);
+	map->max_x = get_width(file_name);
+	map->max_y = get_depth(file_name);
+	if (!validate_map(map))
+		return (NULL);
+	map->coordinates = init_coordinates(map->max_x, map->max_y);
+	if (!map->coordinates)
 	{
-		info = ft_split(point, ',');
-		map->coordinates[coord_x][coord_y].z = (float)ft_atoi(info[0]);
-		map->coordinates[coord_x][coord_y].color = \
-			ft_atoi_base(info[1], HEXADECIMAL_L_BASE);
-		i = 0;
-		while (info[i])
-			free(info[i++]);
-		free(info);
+		free(map);
+		return (NULL);
 	}
-	else
-	{
-		map->coordinates[coord_x][coord_y].z = (float)ft_atoi(point);
-		map->coordinates[coord_x][coord_y].color = -1;
-	}
-	if (map->coordinates[coord_x][coord_y].z > map->max_z)
-		map->max_z = map->coordinates[coord_x][coord_y].z;
-	if (map->coordinates[coord_x][coord_y].z < map->min_z)
-		map->min_z = map->coordinates[coord_x][coord_y].z;
+	get_points(file_name, map);
+	center_to_origin(map);
+	return (map);
 }

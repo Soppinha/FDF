@@ -6,39 +6,39 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 22:33:54 by svaladar          #+#    #+#             */
-/*   Updated: 2026/01/07 23:39:19 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/08 19:40:43 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-static void	render_line(t_fdf *fdf, t_point start, t_point end);
-static void	apply_colors(t_fdf *fdf, t_point *point);
-
-void	render(t_fdf *fdf)
+static void	apply_colors(t_fdf *fdf, t_point *point)
 {
-	int	x;
-	int	y;
+	t_color	*col;
 
-	clear_image(fdf->image, fdf->win_x * fdf->win_y * 4, fdf->win_x, fdf->win_y);
-	y = 0;
-	while (y < fdf->map->max_y)
+	col = NULL;
+	if (fdf->cam->color_pallet == FALSE)
 	{
-		x = 0;
-		while (x < fdf->map->max_x)
-		{
-			if (x < fdf->map->max_x - 1)
-				render_line(fdf, fdf->map->coordinates[x][y], \
-					fdf->map->coordinates[x + 1][y]);
-			if (y < fdf->map->max_y - 1)
-				render_line(fdf, fdf->map->coordinates[x][y], \
-					fdf->map->coordinates[x][y + 1]);
-			x++;
-		}
-		y++;
+		if (point->color == -1)
+			point->color = LINE_DEFAULT;
 	}
-	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->image->image, 0, 0);
-	print_menu(fdf);
+	else
+	{
+		if (point->z >= 0)
+		{
+			col = color_pallet_init(C_BLACK, C_ORANGY);
+			point->color = get_color(col, absolute(point->z),
+					absolute(fdf->map->max_z));
+			free(col);
+		}
+		else
+		{
+			col = color_pallet_init(C_BLACK, C_BLUEY);
+			point->color = get_color(col, absolute(point->z),
+					absolute(fdf->map->max_z));
+			free(col);
+		}
+	}
 }
 
 static void	render_line(t_fdf *fdf, t_point start, t_point end)
@@ -57,31 +57,29 @@ static void	render_line(t_fdf *fdf, t_point start, t_point end)
 	free(fdf->image->line);
 }
 
-static void	apply_colors(t_fdf *fdf, t_point *point)
+void	render(t_fdf *fdf)
 {
-	t_color	*col;
+	int	x;
+	int	y;
 
-	col = NULL;
-	if (fdf->cam->color_pallet == FALSE)
+	clear_image(fdf->image, fdf->win_x * fdf->win_y * 4,
+		fdf->win_x, fdf->win_y);
+	y = 0;
+	while (y < fdf->map->max_y)
 	{
-		if (point->color == -1)
-			point->color = LINE_DEFAULT;
-	}
-	else
-	{
-		if (point->z >= 0)
+		x = 0;
+		while (x < fdf->map->max_x)
 		{
-			col = color_pallet_init(C_BLACK, C_ORANGY);
-			point->color = get_color(col, absolute(point->z), \
-				absolute(fdf->map->max_z));
-			free(col);
+			if (x < fdf->map->max_x - 1)
+				render_line(fdf, fdf->map->coordinates[x][y],
+					fdf->map->coordinates[x + 1][y]);
+			if (y < fdf->map->max_y - 1)
+				render_line(fdf, fdf->map->coordinates[x][y],
+					fdf->map->coordinates[x][y + 1]);
+			x++;
 		}
-		else
-		{
-			col = color_pallet_init(C_BLACK, C_BLUEY);
-			point->color = get_color(col, absolute(point->z), \
-				absolute(fdf->map->max_z));
-			free(col);
-		}
+		y++;
 	}
+	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->image->image, 0, 0);
+	print_menu(fdf);
 }

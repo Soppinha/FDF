@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/30 10:31:53 by cado-car          #+#    #+#             */
-/*   Updated: 2026/01/07 23:28:57 by svaladar         ###   ########.fr       */
+/*   Created: 2026/01/08 17:19:56 by svaladar          #+#    #+#             */
+/*   Updated: 2026/01/08 19:44:28 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,21 @@
 void	error(int exit_code)
 {
 	if (exit_code == 0)
-		ft_putstr_fd("FDF closed. Bye Bye!\n", 1);
+		ft_putstr_fd("FDF closed. Bye!\n", 1);
 	else if (exit_code == 1)
-		ft_putstr_fd("Wrong usage. Expected './fdf <file_path>'.\n", 1);
+		ft_putstr_fd("Error: Wrong usage. Expected './fdf <file_path>'.\n", 2);
 	else if (exit_code == 2)
-		ft_putstr_fd("Cannot read file.\n", 1);
+		ft_putstr_fd("Error: Cannot read file.\n", 2);
 	else if (exit_code == 3)
-		ft_putstr_fd("Cannot initialize fdf.\n", 1);
+		ft_putstr_fd("Error: Cannot initialize fdf.\n", 2);
 	else if (exit_code == 4)
-		ft_putstr_fd("Cannot parse map.\n", 1);
+		ft_putstr_fd("Error: Cannot parse map.\n", 2);
 	else if (exit_code == 5)
-		ft_putstr_fd("Cannot create image.\n", 1);
+		ft_putstr_fd("Error: Cannot create image.\n", 2);
 	else if (exit_code == 6)
-		ft_putstr_fd("Cannot initialize camera.\n", 1);
+		ft_putstr_fd("Error: Cannot initialize camera.\n", 2);
 	else if (exit_code == 7)
-		ft_putstr_fd("Unable to render.\n", 1);
+		ft_putstr_fd("Error: Unable to render.\n", 2);
 	else if (exit_code == 8)
-		ft_putstr_fd("Unable to initialize color.\n", 1);
-	if (exit_code != 0)
-		exit(exit_code);
+		ft_putstr_fd("Error: Unable to initialize color.\n", 2);
 }

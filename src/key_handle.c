@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 23:39:42 by cado-car          #+#    #+#             */
-/*   Updated: 2026/01/07 22:47:59 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/08 19:39:01 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ int	key_handle(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_ESC)
 		close_all(fdf, 0);
-	else if (keycode == KEY_RIGHT || keycode == KEY_LEFT || keycode == KEY_UP \
+	else if (keycode == KEY_RIGHT || keycode == KEY_LEFT || keycode == KEY_UP
 		|| keycode == KEY_DOWN)
 		key_translate(keycode, fdf);
-	else if (keycode == KEY_PLUS || keycode == KEY_MINUS || keycode == KEY_Z \
+	else if (keycode == KEY_PLUS || keycode == KEY_MINUS || keycode == KEY_Z
 		|| keycode == KEY_X)
 		key_scale(keycode, fdf);
-	else if (keycode == KEY_A || keycode == KEY_S || keycode == KEY_D \
+	else if (keycode == KEY_A || keycode == KEY_S || keycode == KEY_D
 		|| keycode == KEY_Q || keycode == KEY_W || keycode == KEY_E)
 		key_rotate(keycode, fdf);
 	else if (keycode == KEY_P || keycode == KEY_I || keycode == KEY_O)

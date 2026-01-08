@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:36:24 by cado-car          #+#    #+#             */
-/*   Updated: 2026/01/07 23:27:49 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/08 19:45:11 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,23 @@ t_fdf	*init_fdf(char *file_name)
 
 	fdf = malloc(sizeof(t_fdf));
 	if (!fdf)
-		error(3);
+		return (error(3), NULL);
 	fdf->map = read_map(file_name);
 	if (!fdf->map)
-	{
-		free(fdf);
-		error(4);
-	}
+		return (free(fdf), error(4), NULL);
 	fdf->mlx = mlx_init();
+	if (!fdf->mlx)
+		return (free(fdf->map), free(fdf), error(3), NULL);
 	mlx_get_screen_size(fdf->mlx, &screen_width, &screen_height);
 	fdf->win_x = screen_width;
 	fdf->win_y = screen_height;
 	fdf->win = mlx_new_window(fdf->mlx, fdf->win_x, fdf->win_y, WINDOW_NAME);
 	fdf->image = init_image(fdf->mlx, fdf->win_x, fdf->win_y);
 	if (!fdf->image)
-		close_map(fdf, 5);
+		return (close_map(fdf, 5), NULL);
 	fdf->cam = init_cam(fdf->map, fdf->win_x, fdf->win_y);
 	if (!fdf->cam)
-		close_all(fdf, 6);
+		return (close_all(fdf, 6), NULL);
 	return (fdf);
 }
 
@@ -64,7 +63,7 @@ t_image	*init_image(void *mlx, int width, int height)
 	if (!image)
 		return (NULL);
 	image->image = mlx_new_image(mlx, width, height);
-	image->buffer = mlx_get_data_addr(image->image, &image->pixel_bits, \
+	image->buffer = mlx_get_data_addr(image->image, &image->pixel_bits,
 			&image->line_bytes, &image->endian);
 	image->line = NULL;
 	return (image);
@@ -105,7 +104,7 @@ t_line	*init_line(t_point start, t_point end, t_fdf *fdf)
 	line->end.y = end.y;
 	line->end.z = end.z;
 	line->end.color = end.color;
-	line->transform_z = max((fdf->map->max_z - fdf->map->min_z), \
-		max(fdf->map->max_x, fdf->map->max_y));
+	line->transform_z = max((fdf->map->max_z - fdf->map->min_z),
+			max(fdf->map->max_x, fdf->map->max_y));
 	return (line);
 }

@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 19:02:49 by cado-car          #+#    #+#             */
-/*   Updated: 2026/01/07 23:38:42 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/08 19:37:57 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	bresenham(t_fdf *fdf, t_point start, t_point end)
 	while (i_line < max_steps)
 	{
 		start.color = get_color(color, i_line++, max_steps);
-		if (start.x > 0 && start.y > 0 && start.x < fdf->win_x && start.y < fdf->win_y)
+		if (start.x > 0 && start.y > 0 && start.x < fdf->win_x
+			&& start.y < fdf->win_y)
 			pixel_to_image(fdf->image, start.x, start.y, start.color);
 		start.x += x_step;
 		start.y += y_step;
@@ -67,7 +68,8 @@ void	pixel_to_image(t_image *image, float x, float y, int color)
 	}
 }
 
-void	clear_image(t_image *image, int image_size, int win_width, int win_height)
+void	clear_image(t_image *image, int image_size,
+	int win_width, int win_height)
 {
 	(void)win_width;
 	(void)win_height;

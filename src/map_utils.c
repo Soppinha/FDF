@@ -1,52 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_utils.c                                       :+:      :+:    :+:   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/07 22:43:37 by svaladar          #+#    #+#             */
-/*   Updated: 2026/01/07 23:31:02 by svaladar         ###   ########.fr       */
+/*   Created: 2026/01/08 16:32:13 by svaladar          #+#    #+#             */
+/*   Updated: 2026/01/08 19:39:23 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../include/fdf.h"
-
-t_point	**init_coordinates(int width, int depth)
-{
-	t_point	**coordinates;
-	int		i;
-	int		j;
-
-	coordinates = malloc(width * sizeof(t_point *));
-	if (!coordinates)
-		return (NULL);
-	i = 0;
-	while (i < width)
-	{
-		coordinates[i] = malloc(depth * sizeof(t_point));
-		if (!coordinates[i])
-		{
-			// Libera tudo que já foi alocado
-			while (--i >= 0)
-				free(coordinates[i]);
-			free(coordinates);
-			return (NULL);
-		}
-		j = 0;
-		while (j < depth)
-		{
-			coordinates[i][j].x = 0;
-			coordinates[i][j].y = 0;
-			coordinates[i][j].z = 0;
-			coordinates[i][j].color = 0;
-			j++;
-		}
-		i++;
-	}
-	return (coordinates);
-}
 
 void	center_to_origin(t_map *map)
 {
@@ -75,7 +39,6 @@ float	scale_to_fit(t_map *map, int win_width, int win_height)
 
 	if (map->max_x == 0 || map->max_y == 0)
 		return (1.0);
-	
 	scale_x = win_width / map->max_x;
 	scale_y = win_height / map->max_y;
 	scale_factor = min(scale_x, scale_y);

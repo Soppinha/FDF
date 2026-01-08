@@ -1,0 +1,70 @@
+{
+   ignore-XFree-related-leaks
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:XFree
+   fun:free
+}
+
+{
+   ignore-X11-leaks-1
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_XEatDataWords
+}
+
+{
+   ignore-X11-leaks-2
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:XOpenDisplay
+}
+
+{
+   ignore-X11-leaks-3
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_X11TransConnect
+}
+
+{
+   ignore-X11-leaks-4
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_XimOpenIM
+}
+
+{
+   ignore-X11-leaks-5
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:XRegisterIMInstantiateCallback
+}
+
+{
+   ignore-X11-leaks-6
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_XimRegisterCallbacks
+}
+
+{
+   ignore-mlx-leaks-1
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:mlx_int_new_xshm
+}
+
+{
+   ignore-mlx-leaks-2
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:mlx_int_get_visual
+}
+
+{
+   ignore-mlx-leaks-3
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:XCreateImage
+}

@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 22:14:12 by svaladar          #+#    #+#             */
-/*   Updated: 2026/01/07 22:58:45 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/08 19:43:12 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 
 # include <fcntl.h>
 # include <math.h>
+# include <stdio.h>
 # include "../minilibx-linux/mlx.h"
 # include "../libft/libft.h"
-#include <sys/time.h>
+# include <sys/time.h>
 # include "keys.h"
 # include "colors.h"
 
@@ -110,7 +111,7 @@ typedef struct s_cam
 	double	alpha;
 	double	beta;
 	double	gamma;
-	long    last_render_time;
+	long	last_render_time;
 }	t_cam;
 
 typedef struct s_fdf
@@ -165,7 +166,16 @@ void	scale(t_line *line, int scale_factor);
 void	translate(t_line *line, int move_x, int move_y);
 
 int		key_handle(int keycode, t_fdf *fdf);
-int 	close_handle(t_fdf *fdf);
+int		close_handle(t_fdf *fdf);
 int		should_render(t_fdf *fdf);
+void	*free_allocated_coords(t_point **coordinates, int count);
+t_point	*alloc_row(int depth);
+void	fill_point(char *point, t_map *map, int coord_x, int coord_y);
+int		validate_line_width(char *line, int expected_width, int fd);
+void	process_line_points(char **split, t_map *map, int coord[2]);
+int		validate_map(t_map *map);
+int		expose_handle(t_fdf *fdf);
+int		mouse_zoom(int button, int x, int y, t_fdf *fdf);
+void	free_fdf_parts(t_fdf *fdf);
 
 #endif

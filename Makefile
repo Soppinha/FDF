@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/10/04 20:34:48 by cado-car          #+#    #+#              #
-#    Updated: 2026/01/07 21:09:37 by svaladar         ###   ########.fr        #
+#    Created: 2026/01/08 17:18:07 by svaladar          #+#    #+#              #
+#    Updated: 2026/01/08 19:33:51 by svaladar         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,21 +19,7 @@ MLX_PATH 	= ./minilibx-linux/
 INCLUDES 	= ./include/
 SRCDIR 		= ./src/
 
-SRC 		= $(SRCDIR)main.c \
-				$(SRCDIR)close.c \
-				$(SRCDIR)color.c \
-				$(SRCDIR)draw.c \
-				$(SRCDIR)error.c \
-				$(SRCDIR)init_utils.c \
-				$(SRCDIR)init.c \
-				$(SRCDIR)key_handle.c \
-				$(SRCDIR)menu.c \
-				$(SRCDIR)project.c \
-				$(SRCDIR)read.c \
-				$(SRCDIR)render.c \
-				$(SRCDIR)rotate.c \
-				$(SRCDIR)transform.c \
-				$(SRCDIR)utils.c
+SRC 		= $(SRCDIR)*.c
 
 OBJ=$(notdir $(SRC:.c=.o))
 #OBJ= fdf.o
@@ -50,7 +36,7 @@ LF 			= --leak-check=full \
         		--track-origins=yes \
         		--verbose \
         		--log-file=$(LEAKS_FILE) \
-        		./fdf maps/42.fdf
+        		./fdf ./test_maps/42.fdf
 
 #common commands
 RM =rm -f

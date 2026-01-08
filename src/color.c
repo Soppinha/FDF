@@ -5,24 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/03 17:26:21 by cado-car          #+#    #+#             */
-/*   Updated: 2026/01/07 23:34:11 by svaladar         ###   ########.fr       */
+/*   Created: 2026/01/08 17:17:48 by svaladar          #+#    #+#             */
+/*   Updated: 2026/01/08 19:37:40 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
-
-static int	color_gradient(t_color *color, float progress);
-
-int	get_color(t_color *color, int i_line, int line_size)
-{
-	float	progress;
-
-	if (line_size == 0)
-		return (color->start_color);
-	progress = (float) i_line / (float) line_size;
-	return (color_gradient(color, progress));
-}
 
 static int	color_gradient(t_color *color, float progress)
 {
@@ -48,6 +36,16 @@ static int	color_gradient(t_color *color, float progress)
 	else if (b > 255)
 		b = 255;
 	return (color->start_color + r + g + b);
+}
+
+int	get_color(t_color *color, int i_line, int line_size)
+{
+	float	progress;
+
+	if (line_size == 0)
+		return (color->start_color);
+	progress = (float) i_line / (float) line_size;
+	return (color_gradient(color, progress));
 }
 
 t_color	*color_init(t_point start, t_point end)

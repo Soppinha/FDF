@@ -5,19 +5,36 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/03 23:08:35 by cado-car          #+#    #+#             */
-/*   Updated: 2026/01/07 22:40:13 by svaladar         ###   ########.fr       */
+/*   Created: 2026/01/08 16:31:34 by svaladar          #+#    #+#             */
+/*   Updated: 2026/01/08 19:46:00 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-static void	close_coordinates(t_point **coordinates, int width);
+static void	close_coordinates(t_point **coordinates, int width)
+{
+	int		i;
+
+	if (!coordinates)
+		return ;
+	i = 0;
+	while (i < width)
+	{
+		if (coordinates[i])
+			free(coordinates[i]);
+		i++;
+	}
+	free(coordinates);
+}
 
 void	close_all(t_fdf *fdf, int exit_code)
 {
 	if (!fdf)
+	{
+		error(exit_code);
 		exit(exit_code);
+	}
 	if (fdf->map && fdf->map->coordinates)
 		close_coordinates(fdf->map->coordinates, fdf->map->max_x);
 	if (fdf->map)
@@ -64,20 +81,4 @@ int	close_handle(t_fdf *fdf)
 {
 	close_all(fdf, 0);
 	return (0);
-}
-
-static void	close_coordinates(t_point **coordinates, int width)
-{
-	int		i;
-
-	if (!coordinates)
-		return ;
-	i = 0;
-	while (i < width)
-	{
-		if (coordinates[i])
-			free(coordinates[i]);
-		i++;
-	}
-	free(coordinates);
 }

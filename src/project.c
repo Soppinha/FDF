@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   project.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cado-car <cado-car@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 20:36:00 by cado-car          #+#    #+#             */
-/*   Updated: 2021/10/04 23:17:43 by cado-car         ###   ########.fr       */
+/*   Updated: 2026/01/08 17:34:11 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ static void	isometric(t_line *line)
 	t_point	new_end;
 
 	new_start.x = (line->start.x - line->start.y) * cos(ANG_30);
-	new_start.y = (line->start.x + line->start.y) * sin(ANG_30) - \
-		line->start.z;
+	new_start.y = (line->start.x + line->start.y) * sin(ANG_30) - line->start.z;
 	line->start.x = new_start.x;
 	line->start.y = new_start.y;
 	new_end.x = (line->end.x - line->end.y) * cos(ANG_30);
