@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 16:37:19 by svaladar          #+#    #+#             */
-/*   Updated: 2026/01/08 22:05:55 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/09 17:02:26 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void	process_line_points(char **split, t_map *map, int coord[2])
 int	validate_map(t_map *map)
 {
 	if (map->max_x == 0 || map->max_y == 0)
-		return (free(map), 0);
+	{
+		free(map);
+		return (0);
+	}
 	return (1);
 }
 
