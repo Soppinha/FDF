@@ -6,10 +6,9 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 22:14:12 by svaladar          #+#    #+#             */
-/*   Updated: 2026/01/08 19:43:12 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/08 23:11:48 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef FDF_H
 # define FDF_H
@@ -19,10 +18,8 @@
 # include <stdio.h>
 # include "../minilibx-linux/mlx.h"
 # include "../libft/libft.h"
-# include <sys/time.h>
 # include "keys.h"
 # include "colors.h"
-
 
 # define WINDOW_NAME	 	"fdf"
 # define WINDOW_WIDTH		1900
@@ -137,7 +134,7 @@ t_cam	*init_cam(t_map *map, int win_width, int win_height);
 
 t_point	**init_coordinates(int width, int depth);
 void	center_to_origin(t_map *map);
-float	scale_to_fit(t_map *map, int win_width, int win_height);
+float	scale_to_fit(t_map *map);
 void	reset(t_fdf *fdf);
 void	close_all(t_fdf *fdf, int exit_code);
 void	close_map(t_fdf *fdf, int exit_code);
@@ -149,10 +146,10 @@ float	max(float a, float b);
 float	min(float a, float b);
 
 void	render(t_fdf *fdf);
-void	draw_image(t_image *image, int max_x, int max_y);
 void	bresenham(t_fdf *fdf, t_point start, t_point end);
 void	pixel_to_image(t_image *image, float x, float y, int color);
-void	clear_image(t_image *image, int image_size, int win_width, int win_height);
+void	clear_image(
+			t_image *image, int image_size, int win_width, int win_height);
 void	print_menu(t_fdf *fdf);
 int		get_color(t_color *color, int i_line, int line_size);
 
@@ -167,7 +164,6 @@ void	translate(t_line *line, int move_x, int move_y);
 
 int		key_handle(int keycode, t_fdf *fdf);
 int		close_handle(t_fdf *fdf);
-int		should_render(t_fdf *fdf);
 void	*free_allocated_coords(t_point **coordinates, int count);
 t_point	*alloc_row(int depth);
 void	fill_point(char *point, t_map *map, int coord_x, int coord_y);
@@ -177,5 +173,6 @@ int		validate_map(t_map *map);
 int		expose_handle(t_fdf *fdf);
 int		mouse_zoom(int button, int x, int y, t_fdf *fdf);
 void	free_fdf_parts(t_fdf *fdf);
+int		validate_file_access(char *file_name);
 
 #endif

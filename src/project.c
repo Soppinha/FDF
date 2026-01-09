@@ -5,25 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/30 20:36:00 by cado-car          #+#    #+#             */
-/*   Updated: 2026/01/08 17:34:11 by svaladar         ###   ########.fr       */
+/*   Created: 2026/01/08 21:56:08 by svaladar          #+#    #+#             */
+/*   Updated: 2026/01/08 21:56:10 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
-
-static void	isometric(t_line *line);
-static void	perspective(t_line *line);
-
-void	project(t_cam *cam, t_line *line)
-{
-	if (cam->projection == ISOMETRIC)
-		isometric(line);
-	else if (cam->projection == PERSPECTIVE)
-		perspective(line);
-	else if (cam->projection == TOP)
-		return ;
-}
 
 static void	isometric(t_line *line)
 {
@@ -48,14 +35,28 @@ static void	perspective(t_line *line)
 
 	rotate_x(line, 3 * -ANG_45);
 	z = line->start.z + line->transform_z;
+	if (z == 0 || z < 0.1)
+		z = 0.1;
 	new_start.x = line->start.x / z;
 	new_start.y = line->start.y / z;
 	line->start.x = new_start.x;
 	line->start.y = -new_start.y;
 	z = line->end.z + line->transform_z;
+	if (z == 0 || z < 0.1)
+		z = 0.1;
 	new_end.x = line->end.x / z;
 	new_end.y = line->end.y / z;
 	line->end.x = new_end.x;
 	line->end.y = -new_end.y;
 	scale(line, line->transform_z);
+}
+
+void	project(t_cam *cam, t_line *line)
+{
+	if (cam->projection == ISOMETRIC)
+		isometric(line);
+	else if (cam->projection == PERSPECTIVE)
+		perspective(line);
+	else if (cam->projection == TOP)
+		return ;
 }

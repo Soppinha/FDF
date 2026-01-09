@@ -6,83 +6,82 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 00:00:00 by svaladar          #+#    #+#             */
-/*   Updated: 2026/01/07 14:51:33 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/08 21:25:21 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	is_valid_base(char *base)
+int	ft_convert_from_base(char *str, char *base)
 {
-	int	i;
-	int	j;
+	size_t	i;
+	size_t	c;
+	int		total;
+	int		base_len;
 
 	i = 0;
-	if (!base || !base[0] || !base[1])
-		return (0);
-	while (base[i])
+	total = 0;
+	base_len = ft_strlen(base);
+	while (str[i] && ft_strchr(base, ft_tolower(str[i])))
 	{
-		if (base[i] == '+' || base[i] == '-')
+		c = 0;
+		while (base[c] != ft_tolower(str[i]) && base[c])
+			c++;
+		total = (total * base_len) + c;
+		i++;
+	}
+	return (total);
+}
+
+int	ft_check_base_error(char *str)
+{
+	size_t	i;
+	size_t	c;
+
+	i = 0;
+	if (ft_strlen(str) <= 1)
+		return (0);
+	while (str[i])
+	{
+		if (!ft_isprint(str[i]))
 			return (0);
-		if (base[i] <= 32 || base[i] == 127)
-			return (0);
-		j = i + 1;
-		while (base[j])
+		c = 1;
+		while (str[i + c])
 		{
-			if (base[i] == base[j])
+			if (str[i + c] == str[i])
 				return (0);
-			j++;
+			c++;
 		}
 		i++;
 	}
-	return (i);
-}
-
-static int	get_index_in_base(char c, char *base)
-{
-	int	i;
-
-	i = 0;
-	while (base[i])
-	{
-		if (base[i] == c || base[i] == c - 32 || base[i] == c + 32)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-static int	ft_isspace(char c)
-{
-	return (c == ' ' || c == '\t' || c == '\n'
-		|| c == '\v' || c == '\f' || c == '\r');
+	return (1);
 }
 
 int	ft_atoi_base(char *str, char *base)
 {
-	int	base_len;
-	int	result;
-	int	sign;
-	int	index;
+	int		sign;
+	int		total;
+	size_t	i;
 
-	base_len = is_valid_base(base);
-	if (!base_len || !str)
+	if (!ft_check_base_error(base))
 		return (0);
-	result = 0;
 	sign = 1;
-	while (ft_isspace(*str))
-		str++;
-	while (*str == '+' || *str == '-')
+	total = 0;
+	i = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
+	if (str[i] == '+' || str[i] == '-')
 	{
-		if (*str == '-')
-			sign *= -1;
-		str++;
+		if (str[i] == '-')
+			sign *= (-1);
+		i++;
 	}
-	index = get_index_in_base(*str, base);
-	while (index >= 0)
+	if (str[i] == '0')
 	{
-		result = result * base_len + index;
-		index = get_index_in_base(*str++, base);
+		i++;
+		if (str[i] == 'x')
+			i++;
 	}
-	return (result * sign);
+	total = ft_convert_from_base(&str[i], base);
+	return (total * sign);
 }

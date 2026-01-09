@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/30 10:25:52 by cado-car          #+#    #+#             */
-/*   Updated: 2026/01/08 18:28:40 by svaladar         ###   ########.fr       */
+/*   Created: 2026/01/08 22:23:21 by svaladar          #+#    #+#             */
+/*   Updated: 2026/01/08 22:23:23 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ int	main(int argc, char **argv)
 	file_name = argv[1];
 	fdf = init_fdf(file_name);
 	if (!fdf)
-	{
-		ft_putstr_fd("Error: Failed to initialize FDF\n", 2);
 		return (1);
-	}
 	render(fdf);
 	mlx_hook(fdf->win, 17, 0, close_handle, fdf);
 	mlx_key_hook(fdf->win, &key_handle, fdf);

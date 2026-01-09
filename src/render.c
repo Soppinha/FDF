@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 22:33:54 by svaladar          #+#    #+#             */
-/*   Updated: 2026/01/08 19:40:43 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/08 21:26:57 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,7 @@ static void	apply_colors(t_fdf *fdf, t_point *point)
 	t_color	*col;
 
 	col = NULL;
-	if (fdf->cam->color_pallet == FALSE)
-	{
-		if (point->color == -1)
-			point->color = LINE_DEFAULT;
-	}
-	else
+	if (fdf->cam->color_pallet == TRUE)
 	{
 		if (point->z >= 0)
 		{
@@ -38,6 +33,11 @@ static void	apply_colors(t_fdf *fdf, t_point *point)
 					absolute(fdf->map->max_z));
 			free(col);
 		}
+	}
+	else
+	{
+		if (point->color == -1)
+			point->color = LINE_DEFAULT;
 	}
 }
 

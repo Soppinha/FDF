@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/30 19:02:49 by cado-car          #+#    #+#             */
-/*   Updated: 2026/01/08 19:37:57 by svaladar         ###   ########.fr       */
+/*   Created: 2026/01/08 21:59:59 by svaladar          #+#    #+#             */
+/*   Updated: 2026/01/08 22:00:01 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,19 @@ void	pixel_to_image(t_image *image, float x, float y, int color)
 void	clear_image(t_image *image, int image_size,
 	int win_width, int win_height)
 {
-	(void)win_width;
-	(void)win_height;
+	int	x;
+	int	y;
+
 	ft_bzero(image->buffer, image_size);
+	y = 0;
+	while (y < win_height)
+	{
+		x = 0;
+		while (x < win_width)
+		{
+			pixel_to_image(image, x, y, BACKGROUND_DEFAULT);
+			x++;
+		}
+		y++;
+	}
 }

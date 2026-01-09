@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 17:18:00 by svaladar          #+#    #+#             */
-/*   Updated: 2026/01/08 19:45:39 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/08 22:12:20 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,12 +93,9 @@ static void	get_points(char *file_name, t_map *map)
 t_map	*read_map(char *file_name)
 {
 	t_map	*map;
-	int		fd;
 
-	fd = open(file_name, O_RDONLY, 0);
-	if (fd < 0)
-		return (error(2), NULL);
-	close(fd);
+	if (!validate_file_access(file_name))
+		return (NULL);
 	map = init_map();
 	if (!map)
 		return (NULL);

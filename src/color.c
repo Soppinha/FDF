@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 17:17:48 by svaladar          #+#    #+#             */
-/*   Updated: 2026/01/08 19:37:40 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/08 23:10:04 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,24 +18,22 @@ static int	color_gradient(t_color *color, float progress)
 	int		g;
 	int		b;
 
-	r = color->delta_r * progress;
-	if (r < -255)
+	r = color->start_r + (int)(color->delta_r * progress);
+	if (r < 0)
 		r = 0;
 	else if (r > 255)
 		r = 255;
-	r = r << 16;
-	g = color->delta_g * progress;
-	if (g < -255)
+	g = color->start_g + (int)(color->delta_g * progress);
+	if (g < 0)
 		g = 0;
 	else if (g > 255)
 		g = 255;
-	g = g << 8;
-	b = color->delta_b * progress;
-	if (b < -255)
+	b = color->start_b + (int)(color->delta_b * progress);
+	if (b < 0)
 		b = 0;
 	else if (b > 255)
 		b = 255;
-	return (color->start_color + r + g + b);
+	return ((r << 16) | (g << 8) | b);
 }
 
 int	get_color(t_color *color, int i_line, int line_size)
