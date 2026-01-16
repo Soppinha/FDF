@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 17:53:09 by svaladar          #+#    #+#             */
-/*   Updated: 2026/01/08 21:37:44 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/14 13:19:38 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,6 @@
 int	expose_handle(t_fdf *fdf)
 {
 	render(fdf);
-	return (0);
-}
-
-int	loop_render(t_fdf *fdf)
-{
-	static int	need_render;
-
-	need_render = 1;
-	if (need_render)
-	{
-		render(fdf);
-		need_render = 0;
-	}
 	return (0);
 }
 
