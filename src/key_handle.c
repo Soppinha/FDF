@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 21:56:42 by svaladar          #+#    #+#             */
-/*   Updated: 2026/01/08 22:50:54 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/16 20:15:02 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ static void	key_translate(int keycode, t_fdf *fdf)
 static void	key_scale(int keycode, t_fdf *fdf)
 {
 	if (keycode == KEY_PLUS)
-		fdf->cam->scale_factor += 1;
+		fdf->cam->scale_factor += 2;
 	else if (keycode == KEY_MINUS && fdf->cam->scale_factor > 2)
-		fdf->cam->scale_factor -= 1;
+		fdf->cam->scale_factor -= 2;
 	else if (keycode == KEY_Z && fdf->cam->scale_z > -1)
 		fdf->cam->scale_z -= 0.1;
 	else if (keycode == KEY_X && fdf->cam->scale_z < 10)
