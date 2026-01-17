@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 16:31:34 by svaladar          #+#    #+#             */
-/*   Updated: 2026/01/08 23:09:49 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/16 21:23:34 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,4 @@ void	close_map(t_fdf *fdf, int exit_code)
 	free(fdf);
 	error(exit_code);
 	exit(exit_code);
-}
-
-int	close_handle(t_fdf *fdf)
-{
-	close_all(fdf, 0);
-	return (0);
 }
