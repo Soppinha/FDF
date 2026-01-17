@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 17:35:59 by svaladar          #+#    #+#             */
-/*   Updated: 2026/01/08 21:57:24 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/16 23:27:35 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,4 @@ float	min(float a, float b)
 		return (a);
 	else
 		return (b);
-}
-
-void	free_fdf_parts(t_fdf *fdf)
-{
-	if (fdf->map)
-		free(fdf->map);
-	free(fdf);
 }
