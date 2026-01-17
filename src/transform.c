@@ -6,14 +6,11 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 22:23:52 by svaladar          #+#    #+#             */
-/*   Updated: 2026/01/08 22:23:54 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/16 21:49:09 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
-
-void	scale(t_line *line, int scale_factor);
-void	translate(t_line *line, int move_x, int move_y);
 
 void	transform(t_cam *cam, t_line *line)
 {
