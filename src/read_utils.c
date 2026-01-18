@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 16:37:19 by svaladar          #+#    #+#             */
-/*   Updated: 2026/01/09 17:02:26 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/17 23:45:50 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	validate_file_access(char *file_name)
 
 	if (!validate_file_extension(file_name))
 	{
-		ft_putstr_fd("Error: File must have .fdf extension.\n", 2);
+		error(9);
 		return (0);
 	}
 	fd = open(file_name, O_RDONLY, 0);

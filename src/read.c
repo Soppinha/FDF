@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 17:18:00 by svaladar          #+#    #+#             */
-/*   Updated: 2026/01/17 23:32:45 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/17 23:47:04 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int	get_width(char *file_name)
 	return (width);
 }
 
-static int	get_depth(char *file_name)
+static int	get_height(char *file_name)
 {
 	int		fd;
 	int		height;
@@ -100,7 +100,7 @@ t_map	*read_map(char *file_name)
 	if (!map)
 		return (NULL);
 	map->max_x = get_width(file_name);
-	map->max_y = get_depth(file_name);
+	map->max_y = get_height(file_name);
 	if (!validate_map(map))
 		return (NULL);
 	map->coordinates = init_coordinates(map->max_x, map->max_y);

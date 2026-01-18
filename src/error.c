@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 17:19:56 by svaladar          #+#    #+#             */
-/*   Updated: 2026/01/08 19:44:28 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/17 23:58:45 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,6 @@ void	error(int exit_code)
 		ft_putstr_fd("Error: Unable to render.\n", 2);
 	else if (exit_code == 8)
 		ft_putstr_fd("Error: Unable to initialize color.\n", 2);
+	else if (exit_code == 9)
+		ft_putstr_fd("Error: File must have .fdf extension.\n", 2);
 }
