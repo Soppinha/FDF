@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/07 22:43:37 by svaladar          #+#    #+#             */
-/*   Updated: 2026/01/08 19:39:44 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/17 23:32:45 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	init_point(t_point *point)
 	point->color = 0;
 }
 
-t_point	**init_coordinates(int width, int depth)
+t_point	**init_coordinates(int width, int height)
 {
 	t_point	**coordinates;
 	int		i;
@@ -32,11 +32,11 @@ t_point	**init_coordinates(int width, int depth)
 	i = 0;
 	while (i < width)
 	{
-		coordinates[i] = alloc_row(depth);
+		coordinates[i] = alloc_row(height);
 		if (!coordinates[i])
 			free_allocated_coords(coordinates, i);
 		j = 0;
-		while (j < depth)
+		while (j < height)
 		{
 			coordinates[i][j].x = 0;
 			coordinates[i][j].y = 0;
@@ -57,16 +57,16 @@ void	*free_allocated_coords(t_point **coordinates, int count)
 	return (NULL);
 }
 
-t_point	*alloc_row(int depth)
+t_point	*alloc_row(int height)
 {
 	t_point	*row;
 	int		j;
 
-	row = malloc(depth * sizeof(t_point));
+	row = malloc(height * sizeof(t_point));
 	if (!row)
 		return (NULL);
 	j = 0;
-	while (j < depth)
+	while (j < height)
 	{
 		init_point(&row[j]);
 		j++;

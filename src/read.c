@@ -6,7 +6,7 @@
 /*   By: svaladar <svaladar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 17:18:00 by svaladar          #+#    #+#             */
-/*   Updated: 2026/01/08 22:12:20 by svaladar         ###   ########.fr       */
+/*   Updated: 2026/01/17 23:32:45 by svaladar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,24 @@ static int	get_width(char *file_name)
 static int	get_depth(char *file_name)
 {
 	int		fd;
-	int		depth;
+	int		height;
 	char	*line;
 
 	fd = open(file_name, O_RDONLY, 0);
 	if (fd < 0)
 		return (0);
-	depth = 0;
+	height = 0;
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
 			break ;
 		if (ft_isprint(*line))
-			depth++;
+			height++;
 		free(line);
 	}
 	close(fd);
-	return (depth);
+	return (height);
 }
 
 static void	get_points(char *file_name, t_map *map)
